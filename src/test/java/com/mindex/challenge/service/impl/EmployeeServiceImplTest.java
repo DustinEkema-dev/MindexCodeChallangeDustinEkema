@@ -77,6 +77,13 @@ public class EmployeeServiceImplTest {
         assertEmployeeEquivalence(readEmployee, updatedEmployee);
     }
 
+    @Test(expected = Exception.class)
+    public void testReadNullEmployee() throws RuntimeException{
+        Employee testEmployee = new Employee();
+        String testId = "123";
+        assertEquals(testEmployee,employeeService.read(testId));
+    }
+
     private static void assertEmployeeEquivalence(Employee expected, Employee actual) {
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
