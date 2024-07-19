@@ -41,7 +41,6 @@ public class ReportingStructureControllerTest {
         when(reportingStructureService.computeReport(any())).thenReturn(createReportingStructure());
 
         mockMvc.perform(get("/direct-reports/16a596ae-edd3-4847-99fe-c4518e82c86f")).andExpect(status().isOk());
-
     }
 
     @Test
