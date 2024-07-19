@@ -5,7 +5,6 @@ import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
 import com.mindex.challenge.service.ReportingStructureService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -29,10 +28,10 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
     }
 
     private int calculateDirectReporters(ArrayList<Employee>employees, int totalReporters){
-        Employee child = employeeService.read(employees.get(0).getEmployeeId());
-        if (child.getDirectReports() != null) {
-            employees.addAll(child.getDirectReports());
-            totalReporters = totalReporters + child.getDirectReports().size();
+        Employee directReporter = employeeService.read(employees.get(0).getEmployeeId());
+        if (directReporter.getDirectReports() != null) {
+            employees.addAll(directReporter.getDirectReports());
+            totalReporters = totalReporters + directReporter.getDirectReports().size();
         }
         employees.remove(0);
         if(employees.isEmpty()){
