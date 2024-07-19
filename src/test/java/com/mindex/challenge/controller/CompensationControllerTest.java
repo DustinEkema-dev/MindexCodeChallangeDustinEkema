@@ -5,7 +5,6 @@ import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.service.CompensationService;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -40,12 +39,6 @@ public class CompensationControllerTest {
     @InjectMocks
     CompensationController compensationController;
 
-    @BeforeAll
-    void setup(){
-        compensationController = new CompensationController();
-        compensationController.compensationService = compensationService;
-    }
-
     @Test
     public void testCompensationCreate() throws Exception {
         String json = "{\"employee\":{\"employeeId\":\"b7839309-3348-463b-a7e3-5de1c168beb3\",\"firstName\":\"Paul\",\"lastName\":\"McCartney\",\"position\":\"DeveloperI\",\"department\":\"Engineering\"},\"salary\":1200.00,\"effectiveDate\":\"2022-02-17\"}";
@@ -57,14 +50,14 @@ public class CompensationControllerTest {
     }
 
     @Test
-    public void testCompensationGet() throws Exception {
+    public void testCompensationGet() {
         when(compensationService.read(any())).thenReturn(createCompensation());
         ResponseEntity<Object> actual = compensationController.read("16a596ae-edd3-4847-99fe-c4518e82c86f");
         assertEquals(actual.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
-    public void testCompensationGetNotFound() throws Throwable {
+    public void testCompensationGetNotFound() {
         when(compensationService.read(any())).thenThrow(new RuntimeException("Error"));
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,"400","error");
         ResponseEntity<Object> compensationObj = compensationController.read("123");
