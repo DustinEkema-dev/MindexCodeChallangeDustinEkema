@@ -45,7 +45,7 @@ public class ReportingStructureControllerTest {
     }
 
     @Test
-    public void testCompensationGetNotFound() throws Throwable {
+    public void testCompensationGetNotFound() {
         when(reportingStructureService.computeReport(any())).thenThrow(new RuntimeException("Error"));
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,"400","Error");
         ResponseEntity<Object> actual = reportingStructureController.read("123");
